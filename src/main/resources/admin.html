@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nucantus | Accepted Challenges</title>
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script async="async" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="config.js"></script>
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="nucantus.css"/>
+    <script>
+        "use strict";
+        jQuery(function () {
+            jQuery.ajax({
+                url: baseURI + "accepted",
+                type: "GET",
+                crossDomain: true
+            }).done(handleSongs);
+        });
+
+        function handleSongs(songs) {
+            for (let song of songs) {
+                console.log(song);
+                if (song.song.length < 5) continue;
+                let row = jQuery("<tr/>").appendTo("#songs tbody");
+                let tokenizedSong = song.song.split(" - ");
+                jQuery("<td/>").appendTo(row).html(tokenizedSong[0]);
+                jQuery("<td/>").appendTo(row).html(tokenizedSong[1]);
+                jQuery("<td/>").appendTo(row).html(song.firstPlayer);
+                jQuery("<td/>").appendTo(row).html(song.secondPlayer);
+
+                let button = jQuery("<button/>");
+                button.attr("type", "button").addClass("btn btn-xs");
+                button.addClass("btn-danger").text("Delete");
+                jQuery("<td/>").appendTo(row).append(button);
+                button.click(function () {
+                    // TODO add functionality to delete button
+                    alert("Deleting challenges is not implemented yet.")
+                });
+                // TODO add timestamp of creation while challenging on server
+                // TODO select winner of challenge
+            }
+            jQuery('#songs').DataTable({paging: false, searching: false});
+        }
+        // TODO list highscore
+        // TODO edit predefined list of participating player names
+    </script>
+</head>
+<body>
+<h1>Accepted Challenges</h1>
+<table id="songs" class="table table-hover table-striped">
+    <thead>
+    <tr>
+        <th>Artist</th>
+        <th>Title</th>
+        <th>Player 1</th>
+        <th>Player 2</th>
+        <th>Manage</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+</body>
+</html>

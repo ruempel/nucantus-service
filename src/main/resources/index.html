@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Nucantus | Song Challenge</title>
+    <meta charset="UTF-8"/>
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script async="async" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="config.js"></script>
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="nucantus.css"/>
+    <script>
+        "use strict";
+        let openChallenges;
+        // TODO add favicon.ico
+        // TODO test mobile friendliness
+
+        jQuery(function () {
+            jQuery.ajax({url: baseURI + "open", crossDomain: true}).done(function (data) {
+                openChallenges = data;
+                jQuery.ajax({url: "songs.txt"}).done(handleSongs);
+            });
+
+            jQuery("#submit").click(function () { // handle challenge or join request on button click
+                let song = jQuery("#song").text().trim();
+                let name = jQuery("#name").val().trim();
+
+                if (name.length > 1) { // input validation
+                    let action = jQuery("#submit").text().toLowerCase();
+                    jQuery.ajax({
+                        url: baseURI + action, // challenge or join
+                        type: "POST",
+                        crossDomain: true,
+                        data: {
+                            song: song,
+                            player: name
+                        }
+                    });
+                    jQuery("#challenge-dialog").modal("hide");
+                    location.reload(); // TODO alternatively update button only depending on server response status
+                } else {
+                    alert("Provided name is invalid.");
+                }
+
+            });
+
+            jQuery("#name").keydown(function (event) { // trigger submit click on enter key press
+                let keyCode = (event.keyCode ? event.keyCode : event.which);
+                if (keyCode == 13) {
+                    jQuery("#submit").click();
+                }
+            });
+        });
+
+        /**
+         * Add row to table for each song.
+         * @param data {string} newline-separated song list
+         */
+        function handleSongs(data) {
+            for (let song of data.split("\n")) {
+                if (song.length < 5) continue;
+                let row = jQuery("<tr/>").appendTo("#songs tbody");
+                jQuery("<td/>").appendTo(row).html(song.split(" - ")[0]);
+                jQuery("<td/>").appendTo(row).html(song.split(" - ")[1]);
+
+                // build and assign challenge button
+                let button = jQuery("<button/>");
+                button.attr("type", "button").addClass("btn btn-xs");
+
+                let challenged = false;
+                for (let openChallenge of openChallenges) {
+                    if (openChallenge.song === song.trim()) {
+                        challenged = true;
+                        break; // TODO remove this challenge from open list (performance)
+                    }
+                }
+                if (challenged)
+                    button.addClass("btn-success").text("Join");
+                else
+                    button.addClass("btn-primary").text("Challenge");
+
+                // configure and show challenge dialog
+                button.click(function () {
+                    jQuery("#song").text(song);
+                    if (challenged)
+                        jQuery("#submit").text("Join");
+                    else jQuery("#submit").text("Challenge");
+                    jQuery("#challenge-dialog").modal("show");
+                    window.setTimeout(function () {
+                        jQuery("#name").focus();
+                    }, 500);
+                });
+                jQuery("<td/>").append(button).appendTo(row);
+            }
+            jQuery('#songs').DataTable({paging: false, order: [[2, "desc"], [0, "asc"]]});
+        }
+    </script>
+</head>
+
+<body>
+<h1>Select Song to Challenge or Join</h1>
+
+<table id="songs" class="table table-hover table-striped">
+    <thead>
+    <tr>
+        <th>Artist</th>
+        <th>Title</th>
+        <th>Challenge</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<!-- modal dialog for challenge or join action, being capable of taking player name text input -->
+<div class="modal fade" id="challenge-dialog" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" id="challenge-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="song"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="name">Player name</label>
+                    <input type="email" class="form-control" id="name" placeholder="Type in your name ...">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="submit">Challenge</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
