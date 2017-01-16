@@ -31,13 +31,18 @@
                 jQuery("<td/>").appendTo(row).html(song.firstPlayer);
                 jQuery("<td/>").appendTo(row).html(song.secondPlayer);
 
+                // delete song button
                 let button = jQuery("<button/>");
                 button.attr("type", "button").addClass("btn btn-xs");
                 button.addClass("btn-danger").text("Delete");
                 jQuery("<td/>").appendTo(row).append(button);
                 button.click(function () {
-                    // TODO add functionality to delete button
-                    alert("Deleting challenges is not implemented yet.")
+                    jQuery.ajax({
+                        url: baseURI + "delete/" + encodeURIComponent(song.song.trim()),
+                        type: "DELETE",
+                        crossDomain: true
+                    });
+                    location.reload();
                 });
                 // TODO add timestamp of creation while challenging on server
                 // TODO select winner of challenge

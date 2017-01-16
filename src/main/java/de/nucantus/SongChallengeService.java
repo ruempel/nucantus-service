@@ -1,6 +1,9 @@
 package de.nucantus;
 
 import javax.ws.rs.*;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -51,10 +54,11 @@ public class SongChallengeService {
     }
 
     @DELETE
-    @Path("delete")
-    public void deleteChallenge(@FormParam("song") String song) {
+    @Path("delete/{song}")
+    public void deleteChallenge(@PathParam("song") String song) throws UnsupportedEncodingException {
+        String decodedSong = URLDecoder.decode(song, StandardCharsets.UTF_8.name());
         for (Challenge challenge : cm.getAcceptedChallenges()) {
-            if (song != null && challenge.getSong().equals(song)) {
+            if (challenge.getSong().equals(decodedSong)) {
                 cm.getAcceptedChallenges().remove(challenge);
                 break;
             }
