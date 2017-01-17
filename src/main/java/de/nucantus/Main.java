@@ -16,7 +16,7 @@ import java.net.URI;
  * @since 2017-01-03
  */
 public class Main {
-    private static final String BASE_URI = "http://localhost:5026/rest/";
+    private static final String BASE_URI = "http://0.0.0.0:5026/rest/";
 
     /**
      * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
