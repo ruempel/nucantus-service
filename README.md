@@ -19,7 +19,7 @@ Afterwards, copy the songs file to ```src/main/resources/``` of your Maven proje
 Configure Web service base URI for target hostname:
 
 * ```baseURI``` at ```src/main/resources/config.js``` and
-* ```BASE_URI``` at ```src/main/nucantus/Main.java``` (optional, defaults to ```http://0.0.0.0:5026/rest/```)
+* ```BASE_URI``` at ```src/main/java/de/nucantus/Main.java``` (optional, defaults to ```http://0.0.0.0:5026/rest/```)
 
 Create the JAR with dependencies: ```mvn clean package```
 
