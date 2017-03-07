@@ -24,13 +24,13 @@
         // TODO add favicon.ico
         // TODO test mobile friendliness
 
-        jQuery(function () {
-            jQuery.ajax({url: baseURI + "open", crossDomain: true}).done(function (data) {
+        jQuery(() => {
+            jQuery.ajax({url: baseURI + "open", crossDomain: true}).done(data => {
                 openChallenges = data;
                 jQuery.ajax({url: "songs.txt"}).done(handleSongs);
             });
 
-            jQuery("#submit").click(function () { // handle challenge or join request on button click
+            jQuery("#submit").click(() => { // handle challenge or join request on button click
                 let song = jQuery("#song").text().trim();
                 let name = jQuery("#name").val().trim();
 
@@ -44,16 +44,16 @@
                             song: song,
                             player: name
                         }
+                    }).always(() => {
+                        jQuery("#challenge-dialog").modal("hide");
+                        location.reload(); // TODO alternatively update button only depending on server response status
                     });
-                    jQuery("#challenge-dialog").modal("hide");
-                    location.reload(); // TODO alternatively update button only depending on server response status
                 } else {
                     alert("Provided name is invalid.");
                 }
-
             });
 
-            jQuery("#name").keydown(function (event) { // trigger submit click on enter key press
+            jQuery("#name").keydown(event => { // trigger submit click on enter key press
                 let keyCode = (event.keyCode ? event.keyCode : event.which);
                 if (keyCode == 13) {
                     jQuery("#submit").click();
@@ -89,13 +89,13 @@
                     button.addClass("btn-primary").text("Challenge");
 
                 // configure and show challenge dialog
-                button.click(function () {
+                button.click(() => {
                     jQuery("#song").text(song);
                     if (challenged)
                         jQuery("#submit").text("Join");
                     else jQuery("#submit").text("Challenge");
                     jQuery("#challenge-dialog").modal("show");
-                    window.setTimeout(function () {
+                    window.setTimeout(() => {
                         jQuery("#name").focus();
                     }, 500);
                 });

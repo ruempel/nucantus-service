@@ -59,6 +59,7 @@ public class SongChallengeService {
         String decodedSong = URLDecoder.decode(song, StandardCharsets.UTF_8.name());
         for (Challenge challenge : cm.getAcceptedChallenges()) {
             if (challenge.getSong().equals(decodedSong)) {
+                LOG.info("Delete song from accepted list: " + decodedSong);
                 cm.getAcceptedChallenges().remove(challenge);
                 break;
             }

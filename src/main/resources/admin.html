@@ -20,7 +20,7 @@
     <link rel="stylesheet" type="text/css" href="nucantus.css"/>
     <script>
         "use strict";
-        jQuery(function () {
+        jQuery(() => {
             jQuery.ajax({
                 url: baseURI + "accepted",
                 type: "GET",
@@ -44,13 +44,14 @@
                 button.attr("type", "button").addClass("btn btn-xs");
                 button.addClass("btn-danger").text("Delete");
                 jQuery("<td/>").appendTo(row).append(button);
-                button.click(function () {
+                button.click(() => {
                     jQuery.ajax({
                         url: baseURI + "delete/" + encodeURIComponent(song.song.trim()),
                         type: "DELETE",
                         crossDomain: true
+                    }).always(() => {
+                        location.reload();
                     });
-                    location.reload();
                 });
                 // TODO add timestamp of creation while challenging on server
                 // TODO select winner of challenge
