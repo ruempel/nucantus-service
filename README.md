@@ -1,6 +1,8 @@
 # About
 Nucantus is a Web-based tool to organize challenges at your karaoke party. First, the party organizer distributes a participation link. Players may browse a song list and challenge a song by typing in their player name. Other players see open challenges and accept them by joining a song with their player name. An admin view lists all accepted challenges and tells you, which song to start next in your karaoke software.
 
+![Challenge and administration views of nucantus](src/site/nucantus-views-screenshot.png)
+
 # How to Use
 The Maven project comprises a RESTful Web service to store challenge data and some static Web resources for user interaction. Challenges do not outlast JVM termination. You need a song list, which can be generated from the song database of your karaoke software such as Vocaluxe.
 
