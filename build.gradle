@@ -1,6 +1,6 @@
 plugins {
     id 'application' // create and package executable JVM application
-    id "com.github.johnrengelman.shadow" version "5.2.0" // create fat JAR with dependencies
+    id 'com.github.johnrengelman.shadow' version '5.2.0' // create fat JAR with dependencies
 }
 
 repositories {
@@ -15,5 +15,5 @@ dependencies {
     runtimeOnly 'com.owlike:genson:1.6' // JSON conversion
 }
 
-mainClassName = "de.nucantus.NucantusApplication" // FQN of the application's main class
+mainClassName = 'de.nucantus.NucantusApplication' // FQN of the application's main class
 sourceCompatibility = JavaVersion.VERSION_11
