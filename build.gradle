@@ -1,0 +1,19 @@
+plugins {
+    id 'application' // create and package executable JVM application
+    id "com.github.johnrengelman.shadow" version "5.2.0" // create fat JAR with dependencies
+}
+
+repositories {
+    jcenter() // popular Maven packages
+}
+
+dependencies {
+    implementation platform('org.glassfish.jersey:jersey-bom:2.30.1') // Jersey dependency management
+    implementation 'org.glassfish.jersey.containers:jersey-container-grizzly2-http' // HTTP server
+    runtimeOnly 'org.glassfish.jersey.inject:jersey-hk2' // dependency injection
+    runtimeOnly 'org.glassfish.jaxb:jaxb-runtime:2.3.2' // Java XML binding
+    runtimeOnly 'com.owlike:genson:1.6' // JSON conversion
+}
+
+mainClassName = "de.nucantus.NucantusApplication" // FQN of the application's main class
+sourceCompatibility = JavaVersion.VERSION_11
