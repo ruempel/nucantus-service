@@ -25,7 +25,7 @@
         // TODO test mobile friendliness
 
         jQuery(() => {
-            jQuery.ajax({url: baseURI + "open", crossDomain: true}).done(data => {
+            jQuery.ajax({url: baseURI + "challenges?open=true", crossDomain: true}).done(data => {
                 openChallenges = data;
                 jQuery.ajax({url: "songs.txt"}).done(handleSongs);
             });
@@ -37,8 +37,8 @@
                 if (name.length > 1) { // input validation
                     let action = jQuery("#submit").text().toLowerCase();
                     jQuery.ajax({
-                        url: baseURI + action, // challenge or join
-                        type: "POST",
+                        url: baseURI + "challenges", // challenge or join
+                        type: action === "challenge"? "POST" : "PUT",
                         crossDomain: true,
                         data: {
                             song: song,
@@ -55,7 +55,7 @@
 
             jQuery("#name").keydown(event => { // trigger submit click on enter key press
                 let keyCode = (event.keyCode ? event.keyCode : event.which);
-                if (keyCode == 13) {
+                if (keyCode === 13) {
                     jQuery("#submit").click();
                 }
             });

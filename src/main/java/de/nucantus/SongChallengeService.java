@@ -13,13 +13,12 @@ import java.util.logging.Logger;
  * @author Andreas Rümpel <ruempel@gmail.com>
  * @since 2017-01-03
  */
-@Path("/")
+@Path("challenges")
 public class SongChallengeService {
     private static final Logger LOG = Logger.getLogger(SongChallengeService.class.getName());
     private ChallengeManager cm = ChallengeManager.getInstance();
 
     @POST
-    @Path("challenge")
     @Consumes("application/x-www-form-urlencoded")
     public void challengeSong(@FormParam("song") String song, @FormParam("player") String playerName) {
         //TODO check whether song is already challenged before adding new challenge
@@ -27,8 +26,7 @@ public class SongChallengeService {
         cm.getOpenChallenges().add(new Challenge(song, playerName));
     }
 
-    @POST
-    @Path("join")
+    @PUT
     @Consumes("application/x-www-form-urlencoded")
     public void joinSong(@FormParam("song") String song, @FormParam("player") String playerName) {
         LOG.info("Challenge accepted for " + song + " from player " + playerName);
@@ -42,19 +40,12 @@ public class SongChallengeService {
     }
 
     @GET
-    @Path("open")
-    public List<Challenge> getOpenChallenges() {
-        return cm.getOpenChallenges();
-    }
-
-    @GET
-    @Path("accepted")
-    public List<Challenge> getAcceptedChallenges() {
-        return cm.getAcceptedChallenges();
+    public List<Challenge> getChallenges(@QueryParam("open") String open) {
+        return "true".equalsIgnoreCase(open)? cm.getOpenChallenges() : cm.getAcceptedChallenges();
     }
 
     @DELETE
-    @Path("delete/{song}")
+    @Path("/{song}")
     public void deleteChallenge(@PathParam("song") String song) throws UnsupportedEncodingException {
         String decodedSong = URLDecoder.decode(song, StandardCharsets.UTF_8.name());
         for (Challenge challenge : cm.getAcceptedChallenges()) {

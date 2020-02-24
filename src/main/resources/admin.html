@@ -22,7 +22,7 @@
         "use strict";
         jQuery(() => {
             jQuery.ajax({
-                url: baseURI + "accepted",
+                url: baseURI + "challenges?open=false",
                 type: "GET",
                 crossDomain: true
             }).done(handleSongs);
@@ -46,7 +46,7 @@
                 jQuery("<td/>").appendTo(row).append(button);
                 button.click(() => {
                     jQuery.ajax({
-                        url: baseURI + "delete/" + encodeURIComponent(song.song.trim()),
+                        url: baseURI + "challenges/" + encodeURIComponent(song.song.trim()),
                         type: "DELETE",
                         crossDomain: true
                     }).always(() => {
