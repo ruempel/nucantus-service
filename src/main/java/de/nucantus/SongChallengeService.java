@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
@@ -30,30 +31,30 @@ public class SongChallengeService {
     @Consumes("application/x-www-form-urlencoded")
     public void joinSong(@FormParam("song") String song, @FormParam("player") String playerName) {
         LOG.info("Challenge accepted for " + song + " from player " + playerName);
-        for (Challenge challenge : cm.getOpenChallenges()) {
-            if (challenge.getSong().equals(song)) {
-                cm.getAcceptedChallenges().add(new Challenge(challenge, playerName));
-                cm.getOpenChallenges().remove(challenge);
-                break;
-            }
+        Optional<Challenge> challenge = cm.getOpenChallenges().stream()
+                .filter(c -> c.getSong().equals(song)).findFirst();
+        if (challenge.isPresent()) {
+            cm.getAcceptedChallenges().add(new Challenge(challenge.get(), playerName));
+            cm.getOpenChallenges().remove(challenge.get());
+        } else {
+            // TODO no open challenge to join
         }
     }
 
     @GET
     public List<Challenge> getChallenges(@QueryParam("open") String open) {
-        return "true".equalsIgnoreCase(open)? cm.getOpenChallenges() : cm.getAcceptedChallenges();
+        return "true".equalsIgnoreCase(open) ? cm.getOpenChallenges() : cm.getAcceptedChallenges();
     }
 
     @DELETE
     @Path("/{song}")
     public void deleteChallenge(@PathParam("song") String song) throws UnsupportedEncodingException {
         String decodedSong = URLDecoder.decode(song, StandardCharsets.UTF_8.name());
-        for (Challenge challenge : cm.getAcceptedChallenges()) {
-            if (challenge.getSong().equals(decodedSong)) {
-                LOG.info("Delete song from accepted list: " + decodedSong);
-                cm.getAcceptedChallenges().remove(challenge);
-                break;
-            }
+        Optional<Challenge> challenge = cm.getAcceptedChallenges().stream()
+                .filter(c -> c.getSong().equals(decodedSong)).findFirst();
+        if (challenge.isPresent()) {
+            LOG.info("Delete song from accepted list: " + decodedSong);
+            cm.getAcceptedChallenges().remove(challenge.get());
         }
     }
 }
