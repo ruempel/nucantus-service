@@ -21,11 +21,10 @@
     <script>
         "use strict";
         let openChallenges;
-        // TODO add favicon.ico
         // TODO test mobile friendliness
 
         jQuery(() => {
-            jQuery.ajax({url: baseURI + "challenges?open=true", crossDomain: true}).done(data => {
+            jQuery.ajax({url: baseURI + "challenges?state=open", crossDomain: true}).done(data => {
                 openChallenges = data;
                 jQuery.ajax({url: "songs.txt"}).done(handleSongs);
             });
@@ -36,18 +35,34 @@
 
                 if (name.length > 1) { // input validation
                     let action = jQuery("#submit").text().toLowerCase();
-                    jQuery.ajax({
-                        url: baseURI + "challenges", // challenge or join
-                        type: action === "challenge"? "POST" : "PUT",
-                        crossDomain: true,
-                        data: {
-                            song: song,
-                            player: name
-                        }
-                    }).always(() => {
-                        jQuery("#challenge-dialog").modal("hide");
-                        location.reload(); // TODO alternatively update button only depending on server response status
-                    });
+                    if(action === "challenge"){
+                        jQuery.ajax({
+                            url: baseURI + "challenges", // challenge
+                            type: "POST",
+                            contentType: "application/json",
+                            dataType: "json",
+                            crossDomain: true,
+                            data: JSON.stringify({
+                                song: song,
+                                player1: name,
+                                player2: ""
+                            })
+                        }).always(() => {
+                            jQuery("#challenge-dialog").modal("hide");
+                            location.reload(); // TODO alternatively update button only depending on server response status
+                        });
+                    } else {
+                        jQuery.ajax({
+                            url: baseURI + "challenges/" + song, // join
+                            type: "PUT",
+                            contentType: "text/plain",
+                            crossDomain: true,
+                            data: name
+                        }).always(() => {
+                            jQuery("#challenge-dialog").modal("hide");
+                            location.reload(); // TODO alternatively update button only depending on server response status
+                        });
+                    }
                 } else {
                     alert("Provided name is invalid.");
                 }

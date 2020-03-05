@@ -9,7 +9,8 @@ repositories {
 
 dependencies {
     implementation platform('org.glassfish.jersey:jersey-bom:2.30.1') // Jersey dependency management
-    implementation 'org.glassfish.jersey.containers:jersey-container-grizzly2-http' // HTTP server
+    implementation 'org.glassfish.jersey.containers:jersey-container-grizzly2-servlet' // servlet and HTTP server
+    implementation 'io.swagger.core.v3:swagger-jaxrs2:2.1.1'
     runtimeOnly 'org.glassfish.jersey.inject:jersey-hk2' // dependency injection
     runtimeOnly 'org.glassfish.jaxb:jaxb-runtime:2.3.2' // Java XML binding
     runtimeOnly 'com.owlike:genson:1.6' // JSON conversion

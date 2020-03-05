@@ -1,1 +1,1 @@
-let baseURI = "http://localhost:5026/rest/"; // define base URI of Web service
+let baseURI = "http://localhost:5026/api/"; // define base URI of REST API

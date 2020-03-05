@@ -22,22 +22,22 @@
         "use strict";
         jQuery(() => {
             jQuery.ajax({
-                url: baseURI + "challenges?open=false",
+                url: baseURI + "challenges?state=accepted",
                 type: "GET",
                 crossDomain: true
             }).done(handleSongs);
         });
 
-        function handleSongs(songs) {
-            for (let song of songs) {
-                console.log(song);
-                if (song.song.length < 5) continue;
+        function handleSongs(challenges) {
+            for (let challenge of challenges) {
+                console.log(challenge);
+                if (challenge.song.length < 5) continue;
                 let row = jQuery("<tr/>").appendTo("#songs tbody");
-                let tokenizedSong = song.song.split(" - ");
+                let tokenizedSong = challenge.song.split(" - ");
                 jQuery("<td/>").appendTo(row).html(tokenizedSong[0]);
                 jQuery("<td/>").appendTo(row).html(tokenizedSong[1]);
-                jQuery("<td/>").appendTo(row).html(song.firstPlayer);
-                jQuery("<td/>").appendTo(row).html(song.secondPlayer);
+                jQuery("<td/>").appendTo(row).html(challenge.player1);
+                jQuery("<td/>").appendTo(row).html(challenge.player2);
 
                 // delete song button
                 let button = jQuery("<button/>");
@@ -46,7 +46,7 @@
                 jQuery("<td/>").appendTo(row).append(button);
                 button.click(() => {
                     jQuery.ajax({
-                        url: baseURI + "challenges/" + encodeURIComponent(song.song.trim()),
+                        url: baseURI + "challenges/" + encodeURIComponent(challenge.song.trim()),
                         type: "DELETE",
                         crossDomain: true
                     }).always(() => {

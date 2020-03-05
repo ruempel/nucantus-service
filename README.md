@@ -20,7 +20,7 @@ The project comprises a RESTful Web service to store challenge data and static W
 Configure Web service base URI for target hostname:
 
 * `baseURI` at `src/main/resources/config.js` and
-* `BASE_URI` at `src/main/java/de/nucantus/NucantusApplication.java` (optional, defaults to `http://0.0.0.0:5026/rest/`)
+* `BASE_URI` at `src/main/java/de/nucantus/NucantusApplication.java` (optional, defaults to `http://0.0.0.0:5026/api/`)
 
 Create the Java archive (JAR) with dependencies: `gradle clean shadowJar`
 
@@ -28,3 +28,9 @@ Copy the created JAR from the `build/libs` directory of the project to your targ
 
 ## Challenge and Accept
 The challenge view is available to your participants at `http://localhost:5026` or according to your URI configuration. The admin view displaying accepted challenges is available at `http://localhost:5026/admin.html`.
+
+## Browse API
+Run Swagger UI:
+```
+docker run -p 8080:8080 -e URL=http://localhost:5026/api/openapi.json --name swagger-ui swaggerapi/swagger-ui
+```
