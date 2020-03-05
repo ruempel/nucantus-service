@@ -1,14 +1,16 @@
 package de.nucantus;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.ws.rs.core.Response;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 public class ChallengeResourceImpl implements ChallengeResource {
-    private static final Logger LOG = Logger.getLogger(ChallengeResourceImpl.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(ChallengeResourceImpl.class);
     private ChallengeManager cm = ChallengeManager.getInstance();
 
     private enum ChallengeState {

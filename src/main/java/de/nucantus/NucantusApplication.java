@@ -6,6 +6,8 @@ import org.glassfish.grizzly.http.server.HttpHandler;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.ApplicationPath;
 import java.net.URI;
@@ -18,6 +20,7 @@ import java.net.URI;
  */
 @ApplicationPath("api")
 public class NucantusApplication extends ResourceConfig {
+    private static final Logger LOG = LoggerFactory.getLogger(NucantusApplication.class);
     private static final String APP_PATH = "api/";
     private static final String BASE_URI = "http://0.0.0.0:5026/" + APP_PATH;
     private static final String STATIC_RESOURCES_ROOT = "/";
@@ -37,6 +40,6 @@ public class NucantusApplication extends ResourceConfig {
 
     public static void main(String[] args) {
         new NucantusApplication().startServer();
-        System.out.println(String.format("Nucantus Jersey app started at %s", BASE_URI));
+        LOG.info("Nucantus Jersey app started at {}", BASE_URI);
     }
 }
