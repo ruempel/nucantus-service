@@ -1,4 +1,4 @@
-@import url(//fonts.googleapis.com/css?family=Titillium+Web:400,700);
+@import url("https://fonts.googleapis.com/css?family=Titillium+Web:400,700");
 
 body, button, #song, #name, .btn {
     font-family: "Titillium Web", sans-serif;
