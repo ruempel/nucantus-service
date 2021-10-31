@@ -4,7 +4,7 @@ plugins {
 }
 
 repositories {
-    jcenter() // popular Maven packages
+    mavenCentral() // popular Maven packages
 }
 
 dependencies {
