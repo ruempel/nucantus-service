@@ -14,17 +14,19 @@ Afterwards, copy the songs file to `src/main/resources/` of your project.
 ## Configure, Build and Run Server
 The project comprises a RESTful Web service to store challenge data and static Web resources for user interaction. Challenges are held in-memory and thus do not outlast JVM termination. You need a song list, which can be generated from the song database of your karaoke software such as Vocaluxe.
 
-* Build requirements: `jdk-11`, `gradle`
-* Runtime requirements: `jre-11`
+* Build and runtime requirements: `jdk-17`
+* The project comes with a Gradle wrapper, you do not need to have Gradle installed on you computer.
 
 Configure Web service base URI for target hostname:
 
 * `baseURI` at `src/main/resources/config.js` and
 * `BASE_URI` at `src/main/java/de/nucantus/NucantusApplication.java` (optional, defaults to `http://0.0.0.0:5026/api/`)
 
-Create the Java archive (JAR) with dependencies: `gradle clean shadowJar`
+Build the application and create the Java archive (JAR) with dependencies: `gradlew clean build`
 
-Copy the created JAR from the `build/libs` directory of the project to your target host and run: `java -jar nucantus-all.jar` 
+Copy the created JAR from the `build/libs` directory of the project to your target host and run: `java -jar nucantus-all.jar`
+
+You may also run the application using `gradlew run` directly.
 
 ## Challenge and Accept
 The challenge view is available to your participants at `http://localhost:5026` or according to your URI configuration. The admin view displaying accepted challenges is available at `http://localhost:5026/admin.html`.

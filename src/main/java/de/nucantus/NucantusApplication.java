@@ -1,15 +1,16 @@
 package de.nucantus;
 
 import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
+import jakarta.ws.rs.ApplicationPath;
 import org.glassfish.grizzly.http.server.CLStaticHttpHandler;
 import org.glassfish.grizzly.http.server.HttpHandler;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.server.ServerProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.ApplicationPath;
 import java.net.URI;
 
 /**
@@ -27,6 +28,7 @@ public class NucantusApplication extends ResourceConfig {
 
     private NucantusApplication() {
         this.registerClasses(ChallengeResourceImpl.class, CORSResponseFilter.class, OpenApiResource.class);
+        this.property(ServerProperties.WADL_FEATURE_DISABLE, true);
     }
 
     /**

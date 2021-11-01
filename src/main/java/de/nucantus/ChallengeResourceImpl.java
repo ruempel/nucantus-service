@@ -1,9 +1,9 @@
 package de.nucantus;
 
+import jakarta.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.core.Response;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class ChallengeResourceImpl implements ChallengeResource {
     private static final Logger LOG = LoggerFactory.getLogger(ChallengeResourceImpl.class);
-    private ChallengeManager cm = ChallengeManager.getInstance();
+    private final ChallengeManager cm = ChallengeManager.getInstance();
 
     private enum ChallengeState {
         OPEN,
@@ -40,15 +40,11 @@ public class ChallengeResourceImpl implements ChallengeResource {
             return Response.status(400, "Bad request: unknown filter option").build();
         }
 
-        switch (validatedState) {
-            case OPEN:
-                return Response.ok().entity(cm.getOpenChallenges()).build();
-            case ACCEPTED:
-                return Response.ok().entity(cm.getAcceptedChallenges()).build();
-            case ALL:
-                return Response.ok().entity(cm.getAllChallenges()).build();
-        }
-        return Response.serverError().build();
+        return switch (validatedState) {
+            case OPEN -> Response.ok().entity(cm.getOpenChallenges()).build();
+            case ACCEPTED -> Response.ok().entity(cm.getAcceptedChallenges()).build();
+            case ALL -> Response.ok().entity(cm.getAllChallenges()).build();
+        };
     }
 
     @Override
