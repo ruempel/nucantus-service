@@ -27,7 +27,8 @@
             jQuery.ajax({
                 url: baseURI + "challenges?state=accepted",
                 type: "GET",
-                crossDomain: true
+                crossDomain: true,
+                dataType: "json"
             }).done(handleSongs);
         });
 

@@ -27,7 +27,7 @@
         // TODO test mobile friendliness
 
         jQuery(() => {
-            jQuery.ajax({url: baseURI + "challenges?state=open", crossDomain: true}).done(data => {
+            jQuery.ajax({url: baseURI + "challenges?state=open", crossDomain: true, dataType: "json"}).done(data => {
                 openChallenges = data;
                 jQuery.ajax({url: "songs.txt"}).done(handleSongs);
             });
