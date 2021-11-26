@@ -1,16 +1,12 @@
-package de.nucantus;
+package de.nucantus.rest;
 
-import jakarta.ws.rs.container.ContainerRequestContext;
-import jakarta.ws.rs.container.ContainerResponseContext;
-import jakarta.ws.rs.container.ContainerResponseFilter;
-import jakarta.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.container.ContainerResponseContext;
+import javax.ws.rs.container.ContainerResponseFilter;
+import javax.ws.rs.core.MultivaluedMap;
 
 /**
  * Cross-origin resource sharing filter to be registered in resource configuration of application.
- *
- * @author Andreas Rümpel <ruempel@gmail.com>
- * @see org.glassfish.jersey.server.ResourceConfig
- * @since 2017-01-04
  */
 public class CORSResponseFilter implements ContainerResponseFilter {
     @Override

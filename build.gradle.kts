@@ -1,6 +1,7 @@
 plugins {
-    application // create and package executable JVM application
-    id("com.github.johnrengelman.shadow") version "7.1.0" // create fat JAR with dependencies
+    id("org.springframework.boot") version "2.5.6"
+    id("io.spring.dependency-management") version "1.0.11.RELEASE"
+    java
 }
 
 repositories {
@@ -8,20 +9,17 @@ repositories {
 }
 
 dependencies {
-    // Jersey
-    implementation(platform("org.glassfish.jersey:jersey-bom:3.0.3")) // Jersey dependency management
-    implementation("org.glassfish.jersey.containers:jersey-container-grizzly2-servlet") // servlet and HTTP server
-    runtimeOnly("org.glassfish.jersey.inject:jersey-hk2") // dependency injection
-    runtimeOnly("org.glassfish.jersey.media:jersey-media-json-jackson") // JSON conversion
+    implementation("org.springframework.boot:spring-boot-starter-jersey")  // RESTful Web service
+    implementation("io.swagger.core.v3:swagger-jaxrs2:2.1.11") // OpenAPI design
+
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
 
     // JUnit
     implementation(platform("org.junit:junit-bom:5.8.1"))
     testImplementation("org.junit.jupiter:junit-jupiter-api") // test API
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine") // test engine implementation
-
-    // misc
-    implementation("io.swagger.core.v3:swagger-jaxrs2-jakarta:2.1.11") // API annotations
-    implementation("ch.qos.logback:logback-classic:1.2.6") // logger
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 java {
@@ -32,8 +30,4 @@ java {
 
 tasks.test {
     useJUnitPlatform()
-}
-
-application {
-    mainClass.set("de.nucantus.NucantusApplication") // FQN of the application's main class
 }

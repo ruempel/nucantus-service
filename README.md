@@ -1,38 +1,43 @@
-# About
-Nucantus is a Web-based tool to organize challenges at your karaoke party. First, the party organizer distributes a participation link. Players may browse a song list and challenge a song by typing in their player name. Other players see open challenges and accept them by joining a song with their player name. An admin view lists all accepted challenges and tells you, which song to start next in your karaoke software.
+# Nucantus Karaoke Challenge Service
 
-![Challenge and administration views of nucantus](src/site/nucantus-views-screenshot.png)
+Nucantus organizes challenges at your karaoke party. First, the party organizer distributes a
+participation link. Players may browse a song list and challenge a song by typing in their player name. Other players
+see open challenges and accept them by joining a song with their player name. A challenge view lists all accepted
+challenges and tells you, which song to start next in your karaoke software.
 
-## Create a Song List
-First, a file with a list of song directories is required. The directory names must be newline-separated. Each directory's name must have the syntax `ARTIST - TITLE`. The file is created by navigating to your song directory and then executing one of the following shell scripts:
+This service provides your song list and lets you manage challenges using a REST API. The API is consumed by the [Nucantus App](https://github.com/ruempel/nucantus-app).
 
-* Powershell: `Get-ChildItem -Name -Include "* - *" > songs.txt`
-* GNU/bash: `ls -A1 | grep " - " > songs.txt`
+## How to Create a Song List
+
+First, a file with a list of song directories is required. The directory names must be newline-separated. Each
+directory's name must have the syntax `ARTIST - TITLE`. The file is created by navigating to your song directory and
+then executing one of the following shell scripts:
+
+- Powershell: `Get-ChildItem -Name -Include "* - *" > songs.txt`
+- GNU/bash: `ls -A1 | grep " - " > songs.txt`
 
 Afterwards, copy the songs file to `src/main/resources/` of your project.
 
-## Configure, Build and Run Server
-The project comprises a RESTful Web service to store challenge data and static Web resources for user interaction. Challenges are held in-memory and thus do not outlast JVM termination. You need a song list, which can be generated from the song database of your karaoke software such as Vocaluxe.
+## How to Build
 
-* Build and runtime requirements: `jdk-17`
-* The project comes with a Gradle wrapper, you do not need to have Gradle installed on you computer.
-
-Configure Web service base URI for target hostname:
-
-* `baseURI` at `src/main/resources/config.js` and
-* `BASE_URI` at `src/main/java/de/nucantus/NucantusApplication.java` (optional, defaults to `http://0.0.0.0:5026/api/`)
+Challenges are held in-memory and thus do not outlast JVM termination. You need a song list, which can be generated from
+the song database of your karaoke software such as [Vocaluxe](https://github.com/Vocaluxe/Vocaluxe). You need a JDK 17 to build and run the service. The project comes with a Gradle wrapper, you do not need to have Gradle installed on you computer.
 
 Build the application and create the Java archive (JAR) with dependencies: `gradlew clean build`
 
-Copy the created JAR from the `build/libs` directory of the project to your target host and run: `java -jar nucantus-all.jar`
+## How to Run
 
-You may also run the application using `gradlew run` directly.
+- run `gradlew bootRun` or
+- run `java -jar build/libs/nucantus.jar` after building
 
-## Challenge and Accept
-The challenge view is available to your participants at `http://localhost:5026` or according to your URI configuration. The admin view displaying accepted challenges is available at `http://localhost:5026/admin.html`.
+The API is available at `http://localhost:8080/api/`.
+
+You may also create a Docker image using `gradlew bootBuildImage` and then run the API using the Docker container at your favorite port.
 
 ## Browse API
-Run Swagger UI:
+
+Use [Swagger UI](https://swagger.io/tools/swagger-ui/) to browse the Nucantus API:
+
 ```
-docker run -p 8080:8080 -e URL=http://localhost:5026/api/openapi.json --name swagger-ui swaggerapi/swagger-ui
+docker run -d -p 8080:8080 -e URL=http://localhost:8080/api/openapi.json --name swagger-ui swaggerapi/swagger-ui
 ```
