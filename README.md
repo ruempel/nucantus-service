@@ -7,6 +7,8 @@ challenges and tells you, which song to start next in your karaoke software.
 
 This service provides your song list and lets you manage challenges using a REST API. The API is consumed by the [Nucantus App](https://github.com/ruempel/nucantus-app).
 
+![Gradle workflow status](https://github.com/ruempel/nucantus-service/actions/workflows/gradle.yml/badge.svg)
+
 ## How to Create a Song List
 
 First, a file with a list of song directories is required. The directory names must be newline-separated. Each
