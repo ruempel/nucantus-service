@@ -56,4 +56,8 @@ public class ChallengeService {
     public boolean deleteChallenge(int challengeId) {
         return challenges.removeIf(challenge -> challenge.getId() == challengeId);
     }
+
+    void deleteAllChallenges() {
+        challenges.clear();
+    }
 }
