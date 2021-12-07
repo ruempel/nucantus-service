@@ -41,5 +41,7 @@ You may also create a Docker image using `gradlew bootBuildImage` and then run t
 Use [Swagger UI](https://swagger.io/tools/swagger-ui/) to browse the Nucantus API:
 
 ```
-docker run -d -p 8080:8080 -e URL=http://localhost:8080/api/openapi.json --name swagger-ui swaggerapi/swagger-ui
+docker run -d -p 8081:8080 -e URL=http://localhost:8080/api/openapi.json --name swagger-ui swaggerapi/swagger-ui
 ```
+
+Swagger UI is available at `http://localhost:8081`.
