@@ -10,7 +10,7 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-jersey")  // RESTful Web service
-    implementation("io.swagger.core.v3:swagger-jaxrs2:2.1.11") // OpenAPI design
+    implementation("io.swagger.core.v3:swagger-jaxrs2:2.1.13") // OpenAPI design
 
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
