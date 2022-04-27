@@ -1,5 +1,5 @@
 plugins {
-    id("org.springframework.boot") version "2.6.3"
+    id("org.springframework.boot") version "2.6.6"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     java
 }
@@ -10,7 +10,7 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-jersey")  // RESTful Web service
-    implementation("io.swagger.core.v3:swagger-jaxrs2:2.1.13") // OpenAPI design
+    implementation("io.swagger.core.v3:swagger-jaxrs2:2.2.0") // OpenAPI design
 
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
@@ -24,7 +24,7 @@ dependencies {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
+        languageVersion.set(JavaLanguageVersion.of(18))
     }
 }
 
