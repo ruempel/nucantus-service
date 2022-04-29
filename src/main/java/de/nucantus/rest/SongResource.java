@@ -1,7 +1,6 @@
 package de.nucantus.rest;
 
 import de.nucantus.model.Song;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -21,11 +20,6 @@ import static de.nucantus.rest.SongResource.TAG_SONGS;
  */
 @Path("/songs")
 @Tag(name = TAG_SONGS)
-@OpenAPIDefinition(
-        tags = {
-                @Tag(name = TAG_SONGS, description = "List songs")
-        }
-)
 public interface SongResource {
     String TAG_SONGS = "songs";
 

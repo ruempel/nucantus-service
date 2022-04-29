@@ -3,11 +3,8 @@ package de.nucantus.rest;
 import de.nucantus.model.Challenge;
 import de.nucantus.model.ChallengeCreator;
 import de.nucantus.model.ChallengeState;
-import io.swagger.v3.oas.annotations.ExternalDocumentation;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,16 +24,6 @@ import static de.nucantus.rest.ChallengeResource.TAG_CHALLENGES;
  */
 @Path("/challenges")
 @Tag(name = TAG_CHALLENGES)
-@OpenAPIDefinition(
-        info = @Info(
-                title = "Challenge Service",
-                version = "0.1.0",
-                description = "Service for challenging karaoke songs and join challenges as a player"
-        ),
-        tags = {
-                @Tag(name = TAG_CHALLENGES, description = "CRUD operations on challenges")
-        }
-)
 public interface ChallengeResource {
     String TAG_CHALLENGES = "challenges";
 
