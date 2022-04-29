@@ -20,10 +20,13 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import static de.nucantus.rest.ChallengeResource.TAG_CHALLENGES;
+
 /**
- * This interface defines the karaoke challenge API.
+ * Define karaoke challenge API.
  */
 @Path("/challenges")
+@Tag(name = TAG_CHALLENGES)
 @OpenAPIDefinition(
         info = @Info(
                 title = "Challenge Service",
@@ -31,21 +34,13 @@ import javax.ws.rs.core.Response;
                 description = "Service for challenging karaoke songs and join challenges as a player"
         ),
         tags = {
-                @Tag(name = ChallengeResource.TAG_CHALLENGES, description = "CRUD operations on challenges")
-        },
-        externalDocs = @ExternalDocumentation(description = "TODO")
+                @Tag(name = TAG_CHALLENGES, description = "CRUD operations on challenges")
+        }
 )
 public interface ChallengeResource {
     String TAG_CHALLENGES = "challenges";
 
-    /**
-     * Challenge a song.
-     *
-     * @param challenge challenge a song
-     * @return open song challenge or error
-     */
     @POST
-    @Tag(name = TAG_CHALLENGES)
     @Consumes(MediaType.APPLICATION_JSON)
     @Operation(summary = "Challenge a song",
             responses = {
@@ -53,20 +48,10 @@ public interface ChallengeResource {
             }
     )
     Response challengesPost(
-            @RequestBody(description = "Challenge containing song and player name", required = true,
-                    content = @Content(
-                            schema = @Schema(implementation = ChallengeCreator.class)
-                    )) ChallengeCreator challenge
+            @RequestBody(description = "Challenge containing song and player name", required = true) ChallengeCreator challenge
     );
 
-    /**
-     * List filtered challenges.
-     *
-     * @param state state to filter challenges
-     * @return challenges matching the filter or error
-     */
     @GET
-    @Tag(name = TAG_CHALLENGES)
     @Operation(summary = "List challenges",
             responses = {
                     @ApiResponse(responseCode = "200", description = "OK",
@@ -80,16 +65,8 @@ public interface ChallengeResource {
             @NotNull @QueryParam("state") ChallengeState state
     );
 
-    /**
-     * Join an open challenge.
-     *
-     * @param id            id of the challenge to join
-     * @param joiningPlayer name of the joining player
-     * @return accepted challenge or error
-     */
     @PUT
     @Path("/{id}")
-    @Tag(name = TAG_CHALLENGES)
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Join an open challenge",
@@ -101,20 +78,11 @@ public interface ChallengeResource {
     Response challengesIdPut(
             @Parameter(description = "ID of challenge to join", required = true)
             @PathParam("id") int id,
-            @RequestBody(description = "Player to join the challenge", required = true,
-                    content = @Content(
-                            schema = @Schema(implementation = String.class))) String joiningPlayer
+            @RequestBody(description = "Player to join the challenge", required = true) String joiningPlayer
     );
 
-    /**
-     * Delete a challenge.
-     *
-     * @param id id of the challenge to join
-     * @return empty response or error
-     */
     @DELETE
     @Path("/{id}")
-    @Tag(name = TAG_CHALLENGES)
     @Operation(summary = "Delete a challenge",
             responses = {
                     @ApiResponse(responseCode = "204", description = "Deleted"),

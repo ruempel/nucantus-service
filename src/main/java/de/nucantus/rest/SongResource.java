@@ -14,25 +14,22 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import static de.nucantus.rest.SongResource.TAG_SONGS;
+
 /**
- * This interface defines the songs API.
+ * Define songs API.
  */
 @Path("/songs")
+@Tag(name = TAG_SONGS)
 @OpenAPIDefinition(
         tags = {
-                @Tag(name = SongResource.TAG_SONGS, description = "List songs")
+                @Tag(name = TAG_SONGS, description = "List songs")
         }
 )
 public interface SongResource {
     String TAG_SONGS = "songs";
 
-    /**
-     * List available songs.
-     *
-     * @return songs
-     */
     @GET
-    @Tag(name = TAG_SONGS)
     @Operation(summary = "List songs",
             responses = {
                     @ApiResponse(responseCode = "200", description = "OK",
