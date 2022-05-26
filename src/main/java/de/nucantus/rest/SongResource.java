@@ -18,7 +18,7 @@ import static de.nucantus.rest.SongResource.TAG_SONGS;
 /**
  * Define songs API.
  */
-@Path("/songs")
+@Path("songs")
 @Tag(name = TAG_SONGS)
 public interface SongResource {
     String TAG_SONGS = "songs";

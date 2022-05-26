@@ -22,7 +22,7 @@ import static de.nucantus.rest.ChallengeResource.TAG_CHALLENGES;
 /**
  * Define karaoke challenge API.
  */
-@Path("/challenges")
+@Path("challenges")
 @Tag(name = TAG_CHALLENGES)
 public interface ChallengeResource {
     String TAG_CHALLENGES = "challenges";
@@ -53,7 +53,7 @@ public interface ChallengeResource {
     );
 
     @PUT
-    @Path("/{id}")
+    @Path("{id}")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Join an open challenge",
@@ -69,7 +69,7 @@ public interface ChallengeResource {
     );
 
     @DELETE
-    @Path("/{id}")
+    @Path("{id}")
     @Operation(summary = "Delete a challenge",
             responses = {
                     @ApiResponse(responseCode = "204", description = "Deleted"),
