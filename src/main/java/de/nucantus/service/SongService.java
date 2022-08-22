@@ -17,7 +17,7 @@ public class SongService {
     public List<Song> getSongs() {
         List<Song> songs = new ArrayList<>();
         try (Scanner s = new Scanner(Objects.requireNonNull(getClass().getClassLoader()
-                .getResourceAsStream("songs.txt")), StandardCharsets.UTF_8.name())) {
+                .getResourceAsStream("songs.txt")), StandardCharsets.UTF_8)) {
             while (s.hasNextLine()) {
                 Optional<Song> song = getSongForLine(s.nextLine(), songs.size());
                 song.ifPresent(songs::add);
