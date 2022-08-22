@@ -4,8 +4,6 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
-import java.net.http.HttpRequest;
 
 /**
  * Cross-origin resource sharing filter to be registered in resource configuration of application.
