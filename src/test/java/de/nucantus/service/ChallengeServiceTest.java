@@ -2,7 +2,6 @@ package de.nucantus.service;
 
 import de.nucantus.model.Challenge;
 import de.nucantus.model.ChallengeCreator;
-import de.nucantus.service.ChallengeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ public class ChallengeServiceTest {
     @Autowired
     private ChallengeService service;
 
-    private final ChallengeCreator challenge = ChallengeCreator.of(42, "P1");
+    private final ChallengeCreator challenge = new ChallengeCreator(42, "P1");
 
     @BeforeEach
     public void prepare() {

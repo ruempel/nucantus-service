@@ -39,7 +39,7 @@ public class SongService {
             String artist = song[0].trim();
             String title = song[1].trim();
             if (!artist.isEmpty() && !title.isEmpty()) {
-                return Optional.of(Song.of(id, artist, title));
+                return Optional.of(new Song(id, artist, title));
             }
         }
         return Optional.empty();

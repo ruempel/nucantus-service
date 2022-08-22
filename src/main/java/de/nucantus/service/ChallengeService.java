@@ -34,8 +34,8 @@ public class ChallengeService {
                 .map(Challenge::getId)
                 .max(Comparator.naturalOrder())
                 .orElse(-1) + 1;
-        Challenge challenge = Challenge.of(id, challengeCreator.getSongId(),
-                challengeCreator.getChallengingPlayer()
+        Challenge challenge = new Challenge(id, challengeCreator.getSongId(),
+                challengeCreator.getChallengingPlayer(), null
         );
         challenges.add(challenge);
         return challenge;

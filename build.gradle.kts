@@ -1,7 +1,10 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     id("org.springframework.boot") version "2.7.3"
     id("io.spring.dependency-management") version "1.0.13.RELEASE"
     java
+    kotlin("jvm") version "1.7.10"
 }
 
 repositories {
@@ -20,6 +23,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api") // test API
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine") // test engine implementation
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 java {
@@ -30,4 +34,12 @@ java {
 
 tasks.test {
     useJUnitPlatform()
+}
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.kotlinOptions {
+    jvmTarget = "1.8"
+}
+val compileTestKotlin: KotlinCompile by tasks
+compileTestKotlin.kotlinOptions {
+    jvmTarget = "1.8"
 }
