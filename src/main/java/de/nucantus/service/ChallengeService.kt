@@ -1,63 +1,40 @@
-package de.nucantus.service;
+package de.nucantus.service
 
-import de.nucantus.model.Challenge;
-import de.nucantus.model.ChallengeCreator;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.function.Predicate;
+import de.nucantus.model.Challenge
+import de.nucantus.model.ChallengeCreator
+import org.springframework.stereotype.Service
 
 /**
  * Store challenge data in-memory (does not survive JVM termination).
  */
 @Service
-public class ChallengeService {
-    private final List<Challenge> challenges = new ArrayList<>();
+class ChallengeService {
+    private val challenges: MutableList<Challenge> = ArrayList()
+    val openChallenges: List<Challenge> get() = challenges.filter(Challenge::isOpen)
+    val acceptedChallenges: List<Challenge> get() = challenges.filterNot(Challenge::isOpen)
+    val allChallenges: List<Challenge> get() = challenges
 
-    public List<Challenge> getOpenChallenges() {
-        return challenges.stream().filter(Challenge::isOpen).toList();
+    fun addChallenge(challengeCreator: ChallengeCreator): Challenge {
+        val id = (challenges.maxOfOrNull { it.id } ?: -1) + 1 // generate unused challenge id
+        val challenge = Challenge(id, challengeCreator.songId, challengeCreator.challengingPlayer, null)
+        challenges.add(challenge)
+        return challenge
     }
 
-    public List<Challenge> getAcceptedChallenges() {
-        return challenges.stream().filter(Predicate.not(Challenge::isOpen)).toList();
-    }
-
-    public List<Challenge> getAllChallenges() {
-        return challenges.stream().toList();
-    }
-
-    public Challenge addChallenge(ChallengeCreator challengeCreator) {
-        // generate unused challenge id
-        int id = challenges.stream()
-                .map(Challenge::getId)
-                .max(Comparator.naturalOrder())
-                .orElse(-1) + 1;
-        Challenge challenge = new Challenge(id, challengeCreator.getSongId(),
-                challengeCreator.getChallengingPlayer(), null
-        );
-        challenges.add(challenge);
-        return challenge;
-    }
-
-    public Challenge joinChallenge(int challengeId, String joiningPlayer) {
+    fun joinChallenge(challengeId: Int, joiningPlayer: String): Challenge {
         // check existence
-        Challenge challengeToJoin = challenges.stream()
-                .filter(challenge -> challenge.getId() == challengeId)
-                .findFirst()
-                .orElseThrow();
+        val challengeToJoin = challenges.first { (id): Challenge -> id == challengeId }
 
         // add joining player and thus update database
-        challengeToJoin.setJoiningPlayer(joiningPlayer);
-        return challengeToJoin;
+        challengeToJoin.joiningPlayer = joiningPlayer
+        return challengeToJoin
     }
 
-    public boolean deleteChallenge(int challengeId) {
-        return challenges.removeIf(challenge -> challenge.getId() == challengeId);
+    fun deleteChallenge(challengeId: Int): Boolean {
+        return challenges.removeIf { (id): Challenge -> id == challengeId }
     }
 
-    void deleteAllChallenges() {
-        challenges.clear();
+    fun deleteAllChallenges() {
+        challenges.clear()
     }
 }
