@@ -4,10 +4,10 @@ import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource
 import io.swagger.v3.oas.annotations.OpenAPIDefinition
 import io.swagger.v3.oas.annotations.info.Info
 import io.swagger.v3.oas.annotations.tags.Tag
+import jakarta.ws.rs.ApplicationPath
 import org.glassfish.jersey.server.ResourceConfig
 import org.glassfish.jersey.server.ServerProperties
 import org.springframework.stereotype.Component
-import javax.ws.rs.ApplicationPath
 
 /**
  * Configure the API and its path for a set of resources.

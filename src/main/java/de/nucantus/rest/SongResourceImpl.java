@@ -1,9 +1,8 @@
 package de.nucantus.rest;
 
 import de.nucantus.service.SongService;
+import jakarta.ws.rs.core.Response;
 import org.springframework.stereotype.Component;
-
-import javax.ws.rs.core.Response;
 
 @Component
 public class SongResourceImpl implements SongResource {
