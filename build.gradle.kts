@@ -15,10 +15,10 @@ dependencies {
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
 
-    // JUnit
-    implementation(platform("org.junit:junit-bom:5.10.3"))
+    // test dependencies
+    testImplementation(platform("org.junit:junit-bom:5.10.3"))
     testImplementation("org.junit.jupiter:junit-jupiter-api") // test API
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine") // test engine implementation
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

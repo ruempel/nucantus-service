@@ -2,7 +2,6 @@ package de.nucantus.service;
 
 import de.nucantus.model.Challenge;
 import de.nucantus.model.ChallengeCreator;
-import de.nucantus.service.ChallengeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +29,8 @@ public class ChallengeServiceTest {
     public void testGetOpenChallenges() {
         List<Challenge> actual = service.getOpenChallenges();
         assertEquals(1, actual.size());
-        assertEquals(challenge.getSongId(), actual.get(0).getSongId());
-        assertEquals(challenge.getChallengingPlayer(), actual.get(0).getChallengingPlayer());
+        assertEquals(challenge.getSongId(), actual.getFirst().getSongId());
+        assertEquals(challenge.getChallengingPlayer(), actual.getFirst().getChallengingPlayer());
     }
 
     @Test
@@ -41,7 +40,7 @@ public class ChallengeServiceTest {
         service.joinChallenge(challengeToAccept.getId(), joiningPlayerName);
         List<Challenge> actual = service.getAcceptedChallenges();
         assertEquals(1, actual.size());
-        assertEquals(joiningPlayerName, actual.get(0).getJoiningPlayer());
+        assertEquals(joiningPlayerName, actual.getFirst().getJoiningPlayer());
     }
 
     @Test
@@ -53,7 +52,7 @@ public class ChallengeServiceTest {
 
     @Test
     public void testDeleteChallenge() {
-        int challengeToDeleteId = service.getAllChallenges().get(0).getId();
+        int challengeToDeleteId = service.getAllChallenges().getFirst().getId();
         boolean result = service.deleteChallenge(challengeToDeleteId);
         assertTrue(result);
     }
