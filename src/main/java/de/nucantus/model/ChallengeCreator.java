@@ -1,9 +1,8 @@
 package de.nucantus.model;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * To open a new challenge, a song id and a challenging player are required.

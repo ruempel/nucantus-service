@@ -4,13 +4,13 @@ import de.nucantus.model.Challenge;
 import de.nucantus.model.ChallengeCreator;
 import de.nucantus.model.ChallengeState;
 import de.nucantus.service.ChallengeService;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
 import java.util.NoSuchElementException;
 
 @Component

@@ -1,9 +1,8 @@
 package de.nucantus.model;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * Represent a song from the song database.
