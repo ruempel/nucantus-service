@@ -1,4 +1,4 @@
-name: Java CI with Gradle
+name: gradle test
 on:
   push:
     branches:
@@ -15,4 +15,4 @@ jobs:
           distribution: 'temurin'
           cache: gradle
       - uses: gradle/actions/setup-gradle@v3
-        run: ./gradlew test
+      - run: ./gradlew test
