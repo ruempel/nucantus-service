@@ -6,7 +6,7 @@ import jakarta.ws.rs.container.ContainerResponseFilter;
 import jakarta.ws.rs.core.MultivaluedMap;
 
 /**
- * Cross-origin resource sharing filter to be registered in resource configuration of application.
+ * Cross-origin resource sharing filter to be registered in the resource configuration of the application.
  */
 public class CORSResponseFilter implements ContainerResponseFilter {
     @Override
