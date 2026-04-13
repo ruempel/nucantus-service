@@ -26,8 +26,7 @@ public class ChallengeResourceImpl implements ChallengeResource {
 
     @Override
     public Response challengesPost(ChallengeCreator challengeCreator) {
-        log.info("Challenge received for " + challengeCreator.getSongId()
-                + " from player " + challengeCreator.getChallengingPlayer());
+        log.info("Challenge received for {} from player {}", challengeCreator.getSongId(), challengeCreator.getChallengingPlayer());
 
         Challenge challenge = service.addChallenge(challengeCreator);
         UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
@@ -39,7 +38,7 @@ public class ChallengeResourceImpl implements ChallengeResource {
 
     @Override
     public Response challengesGet(ChallengeState state) {
-        log.info("Request challenges with state " + state);
+        log.info("Request challenges with state {}", state);
 
         return switch (state) {
             case OPEN -> Response.ok().entity(service.getOpenChallenges()).build();
@@ -50,7 +49,7 @@ public class ChallengeResourceImpl implements ChallengeResource {
 
     @Override
     public Response challengesIdPut(int id, String joiningPlayer) {
-        log.info("Challenge accepted for " + id + " from player " + joiningPlayer);
+        log.info("Challenge accepted for {} from player {}", id, joiningPlayer);
 
         try {
             Challenge challenge = service.joinChallenge(id, joiningPlayer);
@@ -63,7 +62,7 @@ public class ChallengeResourceImpl implements ChallengeResource {
     @Override
     public Response challengesIdDelete(int id) {
         if (service.deleteChallenge(id)) {
-            log.info("Deleted song from accepted list: " + id);
+            log.info("Deleted song from accepted list: {}", id);
             return Response.noContent().build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
