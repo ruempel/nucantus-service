@@ -1,5 +1,5 @@
 plugins {
-    id("org.springframework.boot") version "4.0.5"
+    id("org.springframework.boot") version "4.0.6"
     id("io.spring.dependency-management") version "1.1.7"
     java
 }
@@ -10,7 +10,7 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-jersey")  // RESTful Web service
-    implementation("io.swagger.core.v3:swagger-jaxrs2-jakarta:2.2.22") // OpenAPI design
+    implementation("io.swagger.core.v3:swagger-jaxrs2-jakarta:2.2.49") // OpenAPI design
 
     // reduce boilerplate code with Lombok, versions managed by spring.io
     compileOnly("org.projectlombok:lombok")
